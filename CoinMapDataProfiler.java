@@ -42,7 +42,12 @@ public class CoinMapDataProfiler {
                 String v_string = value.toString();
                 int v = 0;
                 if(v_string != ""){
-                    v = Integer.parseInt(v_string.split(".")[0]); //drop trailing .000000
+                    try {
+                        v = Integer.parseInt(v_string.split(".")[0]); //drop trailing .000000    
+                    }
+                    catch {
+                        System.out.println("ERROR: " + v_string);
+                    }
                 }
 
                 if(v < min) {
