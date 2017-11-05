@@ -71,6 +71,8 @@ public class CoinMapDataProfiler {
         job.setMapperClass(CoinMapDataMapper.class);
         job.setReducerClass(CoinMapDataReducer.class);
 
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(Text.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
