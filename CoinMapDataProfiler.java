@@ -45,8 +45,9 @@ public class CoinMapDataProfiler {
                     try {
                         v = Integer.parseInt(v_string.split(".")[0]); //drop trailing .000000    
                     }
-                    catch {
+                    catch(Exception e) {
                         System.out.println("ERROR: " + v_string);
+                        System.out.println("Exception: " + e);
                     }
                 }
 
