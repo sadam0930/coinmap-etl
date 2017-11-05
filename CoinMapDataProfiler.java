@@ -21,7 +21,7 @@ public class CoinMapDataProfiler {
 
         @Override
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-            if(key != 0) { //first line is column header
+            if(0 != key.get()) { //first line is column header
                 String line = value.toString();
                 String columns[] = line.split(",", -1);
                 Text outputKey = new Text("created_on");
@@ -31,7 +31,7 @@ public class CoinMapDataProfiler {
         }
     }
 
-    public class CoinMapDataReducer extends Reducer<Text, Text, Text, Text> {
+    public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
         
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
@@ -39,7 +39,7 @@ public class CoinMapDataProfiler {
             int max = Integer.MAX_VALUE;
 
             for(Text value : values) {
-                int v = Integer.parseInt(value.get());
+                int v = Integer.parseInt(value.toString());
                 if(v > min) {
                     min = v;
                 }
@@ -47,7 +47,7 @@ public class CoinMapDataProfiler {
                     max = v;
                 }
             }
-            
+
             context.write(new Text("min created_on"), new IntWritable(min));
             context.write(new Text("max created_on"), new IntWritable(max));
         }
