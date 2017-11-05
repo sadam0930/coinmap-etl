@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class CoinMapDataProfiler {
 
-    public class CoinMapDataMapper extends Mapper<LongWritable, Text, Text, Text> {
+    public static class CoinMapDataMapper extends Mapper<LongWritable, Text, Text, Text> {
         // Columns of interest:
         private final int CATEGORY = 0;
         private final int CITY = 1;
@@ -31,7 +31,7 @@ public class CoinMapDataProfiler {
         }
     }
 
-    public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
+    public static class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
         
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
