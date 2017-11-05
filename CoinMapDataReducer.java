@@ -11,8 +11,6 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
         int max = Integer.MIN_VALUE;
 
         for(Text value : values) {
-            System.out.println("DEBUG: " + key.toString());
-            System.out.println("DEBUG: " + value.toString());
             String v_string = value.toString();
             int v = 0;
             if(v_string != ""){
@@ -22,6 +20,7 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
                 catch(Exception e) {
                     System.out.println("ERROR: " + v_string);
                     System.out.println("Exception: " + e);
+                    continue;
                 }
             }
 
