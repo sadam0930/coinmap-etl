@@ -39,7 +39,7 @@ public class CoinMapDataProfiler {
             int max = Integer.MIN_VALUE;
 
             for(Text value : values) {
-                string v_string = value.toString();
+                String v_string = value.toString();
                 int v = 0;
                 if(v_string != ""){
                     v = Integer.parseInt(v_string.split(".")[0]); //drop trailing .000000
