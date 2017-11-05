@@ -35,15 +35,20 @@ public class CoinMapDataProfiler {
         
         @Override
         public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-            int min = Integer.MIN_VALUE;
-            int max = Integer.MAX_VALUE;
+            int min = Integer.MAX_VALUE;
+            int max = Integer.MIN_VALUE;
 
             for(Text value : values) {
-                int v = Integer.parseInt(value.toString().split(".")[0]); //drop trailing .000000
-                if(v > min) {
+                string v_string = value.toString();
+                int v = 0;
+                if(v_string != ""){
+                    v = Integer.parseInt(v_string.split(".")[0]); //drop trailing .000000
+                }
+
+                if(v < min) {
                     min = v;
                 }
-                if(v < max) {
+                if(v > max) {
                     max = v;
                 }
             }
