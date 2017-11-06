@@ -16,8 +16,8 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
 
             for(Text value : values) {
                 String v_string = value.toString();
-                int v = 0;
-                if(v_string.length() != 0) {
+                int v = min;
+                if(!v_string.equals("")) {
                     try {
                         v = Integer.parseInt(v_string.split("\\.")[0]); //drop trailing .000000    
                     }
