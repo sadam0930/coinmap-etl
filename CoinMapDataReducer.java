@@ -16,7 +16,7 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
         if (column.equals("created_on")) {
             for(Text value : values) {
                 String v_string = value.toString();
-                int v = null;
+                Integer v = null;
                 if(!v_string.equals("")) {
                     try {
                         v = Integer.parseInt(v_string.split("\\.")[0]); //drop trailing .000000    
@@ -39,7 +39,7 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
             if(cat_name.equals("")) { //cat name is in value
                 for(Text value : values) {
                     cat_name = value.toString();
-                    cat_name_length = cat_name.length();
+                    int cat_name_length = cat_name.length();
                     min = min(cat_name_length, min);
                     max = max(cat_name_length, max);
                 }
@@ -57,14 +57,14 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
         
     }
 
-    public int min(int v, int min){
+    public int min(Integer v, int min){
         if(v != null && v < min) {
             return v;
         }
         return min;
     }
 
-    public int max(int v, int max){
+    public int max(Integer v, int max){
         if(v != null && v > max) {
             return v;
         }
