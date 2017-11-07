@@ -29,6 +29,7 @@ public class CoinMapDataMapper extends Mapper<LongWritable, Text, Text, Text> {
 
                 outputKey = new Text("category:");
                 outputValue = new Text(columns[CATEGORY]);
+                context.write(outputKey, outputValue);
             }
         }
     }
