@@ -14,6 +14,7 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
         int max = Integer.MIN_VALUE;
 
         if (column.equals("created_on")) {
+            int total_rows = 0;
             for(Text value : values) {
                 String v_string = value.toString();
                 Integer v = null;
@@ -30,10 +31,12 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
 
                 min = min(v, min);
                 max = max(v, max);
+                total_rows++;
             }
 
             context.write(new Text("min created_on"), new IntWritable(min));
             context.write(new Text("max created_on"), new IntWritable(max));   
+            context.write(new Text("total rows"), new IntWritable(total_rows));
         } else if (column.equals("category")) {
             String cat_name = key_col_str[1]; //if passed by category:cat_name
             if(cat_name.equals("")) { //cat name is in value
@@ -53,6 +56,13 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
                 }
                 context.write(new Text("category count - " + cat_name), new IntWritable(sum));
             }
+        } else if (column.equals("country")) {
+            String country_code = key_col_str[1]; //if passed by country:country_code
+            int sum = 0;
+            for(Text value : values) {
+                sum += Integer.parseInt(value.toString());
+            }
+            context.write(new Text("country count - " + country_code), new IntWritable(sum));
         }
         
     }
