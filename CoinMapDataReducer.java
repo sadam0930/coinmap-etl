@@ -37,7 +37,7 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
         } else if (column.equals("category")) {
             String cat_name = key_col_str[1]; //if passed by category:cat_name
             if(cat_name.equals("")) { //cat name is in value
-                for(value : values) {
+                for(Text value : values) {
                     cat_name = value.toString();
                     cat_name_length = cat_name.length();
                     min = min(cat_name_length, min);
@@ -48,7 +48,7 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, IntWritable> {
             } else {
                 //if passed by category:cat_name
                 int sum = 0;
-                for(value : values) {
+                for(Text value : values) {
                     sum += Integer.parseInt(value.toString());
                 }
                 context.write(new Text("category count - " + cat_name), new IntWritable(sum));
