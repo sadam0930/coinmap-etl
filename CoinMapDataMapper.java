@@ -1,5 +1,4 @@
 import org.apache.hadoop.io.Text;
-// import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.mapreduce.Mapper;
 import java.io.IOException;
@@ -17,9 +16,19 @@ public class CoinMapDataMapper extends Mapper<LongWritable, Text, Text, Text> {
             if(0 != key.get()) { //first line is column header
                 String line = value.toString();
                 String columns[] = line.split(",", -1);
+                
+                // created_on timestamp
                 Text outputKey = new Text("created_on:");
                 Text outputValue = new Text(columns[CREATED_ON]);
                 context.write(outputKey, outputValue);
+
+                // category
+                outputKey = new Text("category:"+columns[CATEGORY]);
+                outputValue = new Text("1");
+                context.write(outputKey, outputValue);
+
+                outputKey = new Text("category:");
+                outputValue = new Text(columns[CATEGORY]);
             }
         }
     }
