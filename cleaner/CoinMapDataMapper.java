@@ -21,8 +21,7 @@ public class CoinMapDataMapper extends Mapper<LongWritable, Text, Text, Text> {
                                         columns[CATEGORY]
                                         + "," + columns[CITY]
                                         + "," + columns[COUNTRY]
-                                        + "," + columns[CREATED_ON]
-                                        + "," + columns[NAME]
+                                        + "," + columns[CREATED_ON].split("\\.")[0] //drop trailing .000000
                                     );
                 context.write(new Text("throwaway"), outputValue);
             }
