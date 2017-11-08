@@ -17,7 +17,7 @@ public class CoinMapDataMapper extends Mapper<LongWritable, Text, Text, Text> {
                 String line = value.toString();
                 String columns[] = line.split(",", -1);
                 
-                outputValue = new Text(
+                Text outputValue = new Text(
                                         columns[CATEGORY]
                                         + "," + columns[CITY]
                                         + "," + columns[COUNTRY]
