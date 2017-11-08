@@ -24,7 +24,7 @@ public class CoinMapDataMapper extends Mapper<LongWritable, Text, Text, Text> {
                                         + "," + columns[CREATED_ON]
                                         + "," + columns[NAME]
                                     );
-                context.write(key, outputValue);
+                context.write(new Text("throwaway"), outputValue);
             }
         }
     }
