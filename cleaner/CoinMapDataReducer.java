@@ -3,7 +3,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 import java.util.Date;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.sql.Timestamp;
 
 public class CoinMapDataReducer extends Reducer<Text, Text, Text, Text> {
@@ -31,9 +31,8 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, Text> {
             try {
                 //convert timestamp to date
                 Timestamp timestamp = new Timestamp(Long.parseLong(columns[CREATED_ON]));
-                Date date = new Date(timestamp.getTime());
-                DateFormat shortDf = DateFormat.getDateInstance(DateFormat.SHORT);
-                columns[CREATED_ON] = shortDf.format(date);
+                Date date = new Date(timestamp.getTime() * 1000L);
+                columns[CREATED_ON] = new SimpleDateFormat("yyyy-MM-dd").format(date);;
             } catch (Exception e) {
                 System.out.println("ERROR: " + columns[CREATED_ON]);
                 System.out.println("Exception: " + e);
