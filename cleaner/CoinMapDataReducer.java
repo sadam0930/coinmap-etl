@@ -28,11 +28,17 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, Text> {
                 columns[COUNTRY] = "VN";
             }
 
-            //convert timestamp to date
-            Timestamp timestamp = new Timestamp(Long.parseLong(columns[CREATED_ON]));
-            Date date = new Date(timestamp.getTime());
-            DateFormat shortDf = DateFormat.getDateInstance(DateFormat.SHORT);
-            columns[CREATED_ON] = shortDf.format(date);
+            try {
+                //convert timestamp to date
+                Timestamp timestamp = new Timestamp(Long.parseLong(columns[CREATED_ON]));
+                Date date = new Date(timestamp.getTime());
+                DateFormat shortDf = DateFormat.getDateInstance(DateFormat.SHORT);
+                columns[CREATED_ON] = shortDf.format(date);
+            } catch (Exception e) {
+                System.out.println("ERROR: " + columns[CREATED_ON]);
+                System.out.println("Exception: " + e);
+                continue;
+            }
             
             String output = toCSV(columns);
             context.write(new Text(output), new Text(""));
