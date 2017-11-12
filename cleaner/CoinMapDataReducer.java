@@ -2,6 +2,9 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
+import java.util.Data;
+import java.text.DateFormat;
+import java.sql.Timestamp;
 
 public class CoinMapDataReducer extends Reducer<Text, Text, Text, Text> {
     // Columns of interest:
@@ -24,6 +27,12 @@ public class CoinMapDataReducer extends Reducer<Text, Text, Text, Text> {
             } else if(columns[COUNTRY].equals("Vietnam")) {
                 columns[COUNTRY] = "VN";
             }
+
+            //convert timestamp to date
+            Timestamp timestamp = new Timestamp(Long.parseLong(columns[CREATED_ON]));
+            Date date = new Date(timestamp.getTime());
+            DateFormat shortDf = DateFormat.getDateInstance(DateFormat.SHORT);
+            columns[CREATED_ON] = shortDf.format(date);
             
             String output = toCSV(columns);
             context.write(new Text(output), new Text(""));
